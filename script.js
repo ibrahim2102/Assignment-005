@@ -27,7 +27,7 @@ let currentCoins = 100;
 // Find the coin display element by looking for the span that contains "100" initially
 const coinDisplay = Array.from(document.querySelectorAll('span')).find(span => 
     span.textContent === '100' && 
-    span.closest('.border-2.border-\\[\\#41FF6B19\\]')
+    span.closest('.border-2.border-[#41FF6B19]')
 );
 
 // Function to update coin display
@@ -37,12 +37,12 @@ function updateCoinDisplay() {
     }
 }
 
-// Initialize coin display
+
 updateCoinDisplay();
 
 // Copy System
 let copyCount = 0;
-const copyCountSpan = document.querySelector('.border-2.border-\\[\\#00A63E\\] span');
+const copyCountSpan = document.querySelector('.border-2.border-[#00A63E] span');
 
 // Function to update copy count display
 function updateCopyCount() {
@@ -51,12 +51,12 @@ function updateCopyCount() {
     }
 }
 
-// Initialize copy count display
+
 updateCopyCount();
 
-// Basic function to copy text to clipboard
+
 function copyToClipboard(text) {
-    // Create a temporary textarea element
+    
     const textArea = document.createElement('textarea');
     textArea.value = text;
     textArea.style.position = 'fixed';
@@ -64,14 +64,14 @@ function copyToClipboard(text) {
     textArea.style.top = '-999999px';
     document.body.appendChild(textArea);
     
-    // Select the text
+    
     textArea.focus();
     textArea.select();
     
-    // Copy the text
+    
     document.execCommand('copy');
     
-    // Remove the temporary element
+    
     document.body.removeChild(textArea);
     
     return true;
@@ -82,7 +82,7 @@ document.querySelectorAll('.border-2.border-gray-300.bg-white').forEach(function
     copyBtn.addEventListener('click', function(e) {
         e.preventDefault();
         
-        // Get the phone number from the card
+        
         const card = copyBtn.closest('.service-card');
         const phoneNumberElement = card.querySelector('.phone-number');
         const phoneNumber = phoneNumberElement ? phoneNumberElement.textContent : 'Unknown';
@@ -90,14 +90,14 @@ document.querySelectorAll('.border-2.border-gray-300.bg-white').forEach(function
         // Copy to clipboard
         copyToClipboard(phoneNumber);
         
-        // Increment copy count
+        
         copyCount++;
         updateCopyCount();
         
         // Show success alert
         alert('Copied! Phone number "' + phoneNumber + '" has been copied to clipboard.\nTotal copies: ' + copyCount);
         
-        console.log('Copy attempted for: ' + phoneNumber);
+        
     });
 });
 
@@ -138,21 +138,21 @@ document.querySelectorAll('.call-btn').forEach(function(callBtn) {
     callBtn.addEventListener('click', function(e) {
         e.preventDefault();
         
-        // Check if user has enough coins
+        
         if (currentCoins < 20) {
             alert('Insufficient coins! You need at least 20 coins to make a call. Current coins: ' + currentCoins);
             return;
         }
         
-        // Deduct 20 coins
+        
         currentCoins -= 20;
         updateCoinDisplay();
         
-        // Get the service name and phone number from the card
+        
         const card = callBtn.closest('.service-card');
         const serviceName = card.querySelector('h1').textContent;
         
-        // Find the phone number using the new class
+       
         const phoneNumberElement = card.querySelector('.phone-number');
         const phoneNumber = phoneNumberElement ? phoneNumberElement.textContent : 'Unknown';
         
@@ -162,6 +162,5 @@ document.querySelectorAll('.call-btn').forEach(function(callBtn) {
         // Show success alert with phone number
         alert(`Call initiated for ${serviceName}!\nPhone Number: ${phoneNumber}\n20 coins deducted. Remaining coins: ${currentCoins}`);
         
-        console.log(`Call made to: ${serviceName} - ${phoneNumber}`);
     });
 });
